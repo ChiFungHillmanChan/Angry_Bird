@@ -29,8 +29,50 @@ export function renderBlock(ctx: CanvasRenderingContext2D, body: DrawableBody & 
   ctx.save();
   ctx.translate(body.position.x, body.position.y);
   ctx.rotate(body.angle);
-  ctx.fillStyle = body.mat === 'stone' ? '#9aa4b2' : '#8b5e3c';
-  ctx.fillRect(-w / 2, -h / 2, w, h);
+  
+  // Material colors and effects
+  if (body.mat === 'stone') {
+    ctx.fillStyle = '#6b7280';
+    ctx.fillRect(-w / 2, -h / 2, w, h);
+    
+    // Stone texture lines
+    ctx.strokeStyle = '#4b5563';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(-w / 2 + 5, -h / 2 + 5);
+    ctx.lineTo(w / 2 - 5, -h / 2 + 5);
+    ctx.moveTo(-w / 2 + 5, h / 2 - 5);
+    ctx.lineTo(w / 2 - 5, h / 2 - 5);
+    ctx.stroke();
+  } else {
+    // Wood
+    ctx.fillStyle = '#92400e';
+    ctx.fillRect(-w / 2, -h / 2, w, h);
+    
+    // Wood grain lines
+    ctx.strokeStyle = '#78350f';
+    ctx.lineWidth = 1;
+    for (let i = -h / 2 + 8; i < h / 2; i += 8) {
+      ctx.beginPath();
+      ctx.moveTo(-w / 2 + 2, i);
+      ctx.lineTo(w / 2 - 2, i);
+      ctx.stroke();
+    }
+  }
+  
+  // Border
+  ctx.strokeStyle = '#374151';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(-w / 2, -h / 2, w, h);
+  
+  // HP indicator (development mode)
+  if (import.meta.env.DEV && body.hp !== undefined) {
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    ctx.font = '10px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(body.hp.toString(), 0, 3);
+  }
+  
   ctx.restore();
 }
 

@@ -13,6 +13,7 @@ export class Slingshot {
   private currentBird: any | null = null;
   private path: { x: number; y: number }[] = [];
   private onLaunch: () => void;
+  private trajectoryPreview: { x: number; y: number }[] = [];
 
   constructor(
     x: number,
@@ -39,7 +40,7 @@ export class Slingshot {
   }
 
   private spawnBird(): void {
-    const bird = Matter.Bodies.circle(this.anchor.x, this.anchor.y, 16, {
+    const bird = Matter.Bodies.circle(this.anchor.x, this.anchor.y, 28, {
       label: 'bird',
       density: 0.003,
       friction: 0.3,
@@ -72,11 +73,48 @@ export class Slingshot {
     return { x, y };
   }
 
+  private computeTrajectoryPreview(velocity: { x: number; y: number }): { x: number; y: number }[] {
+    const points: { x: number; y: number }[] = [];
+    const dt = 0.05; // Time step for preview
+    const gravity = 1.0; // Match physics engine gravity
+    const maxPoints = 30;
+    
+    let x = this.anchor.x;
+    let y = this.anchor.y;
+    let vx = velocity.x;
+    let vy = velocity.y;
+    
+    for (let i = 0; i < maxPoints; i++) {
+      points.push({ x, y });
+      
+      // Update position
+      x += vx * dt;
+      y += vy * dt;
+      
+      // Update velocity (gravity)
+      vy += gravity * dt;
+      
+      // Stop if trajectory goes too far down (hit ground level)
+      if (y > 620) break;
+      
+      // Stop if trajectory goes too far to the right
+      if (x > this.anchor.x + 800) break;
+    }
+    
+    return points;
+  }
+
   update(): void {
     if (!this.currentBird) return;
     const pull = this.getPullPoint();
     if (pull) {
       Matter.Body.setPosition(this.currentBird as any, pull as any);
+      
+      // Compute trajectory preview
+      const velocity = this.computeLaunchVelocity(pull);
+      this.trajectoryPreview = this.computeTrajectoryPreview(velocity);
+    } else {
+      this.trajectoryPreview = [];
     }
     if (!this.input.pointer.isDown && this.input.pointer.start && pull) {
       // Release
@@ -94,10 +132,27 @@ export class Slingshot {
       this.path.push({ x: pos.x, y: pos.y });
       if (this.path.length > 40) this.path.shift();
       const vel = (this.currentBird as any).velocity as { x: number; y: number };
-      if ((vel.x ** 2 + vel.y ** 2) < 0.01) {
-        // Ended movement
+      
+      // Check if bird has stopped moving or fallen too far
+      const isStationary = (vel.x ** 2 + vel.y ** 2) < 0.01;
+      const isTooFar = pos.y > 800 || pos.x > 3200 || pos.x < -100;
+      
+      if (isStationary || isTooFar) {
+        // Bird has stopped or gone off-screen, return camera and spawn new bird
         this.currentBird = null;
-        this.spawnBird();
+        
+        // Return camera to slingshot after a delay
+        setTimeout(() => {
+          this.renderer.camera.follow(
+            { getPosition: () => ({ x: this.anchor.x + 300, y: this.anchor.y }) }, 
+            { lerp: 0.05 }
+          );
+        }, 1000);
+        
+        // Spawn new bird after camera returns
+        setTimeout(() => {
+          this.spawnBird();
+        }, 2000);
       }
     }
   }
@@ -129,17 +184,39 @@ export class Slingshot {
       ctx.fillStyle = '#ffd166';
       ctx.beginPath();
       const p = (this.currentBird as any).position as { x: number; y: number };
-      ctx.arc(p.x, p.y, 16, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, 28, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    // Trajectory
-    ctx.fillStyle = 'rgba(255,255,255,0.4)';
-    for (const p of this.path) {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
-      ctx.fill();
+    // Trajectory preview (when aiming)
+    if (this.trajectoryPreview.length > 0) {
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      for (let i = 0; i < this.trajectoryPreview.length; i++) {
+        const p = this.trajectoryPreview[i];
+        if (p) {
+          const alpha = 1 - (i / this.trajectoryPreview.length);
+          ctx.globalAlpha = alpha * 0.6;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      ctx.globalAlpha = 1;
     }
+
+    // Bird trail (after launch)
+    ctx.fillStyle = 'rgba(255,209,102,0.4)';
+    for (let i = 0; i < this.path.length; i++) {
+      const p = this.path[i];
+      if (p) {
+        const alpha = (i + 1) / this.path.length;
+        ctx.globalAlpha = alpha * 0.4;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    ctx.globalAlpha = 1;
   }
 }
 

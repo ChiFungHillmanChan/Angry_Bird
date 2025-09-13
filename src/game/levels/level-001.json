@@ -2,7 +2,7 @@
   "id": "level-001",
   "world": { "gravity": 1.0, "wind": 0 },
   "camera": { "startX": 0, "startY": 0, "minX": 0, "maxX": 3200 },
-  "slingshot": { "x": 180, "y": 520, "maxPull": 140, "powerK": 7.5 },
+  "slingshot": { "x": 200, "y": 560, "maxPull": 140, "powerK": 7.5 },
   "birds": [{ "type": "basic" }, { "type": "basic" }, { "type": "basic" }],
   "blocks": [
     { "shape": "rect", "x": 900, "y": 560, "w": 160, "h": 30, "mat": "wood", "hp": 40 },

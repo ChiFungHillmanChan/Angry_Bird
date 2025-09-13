@@ -13,7 +13,7 @@
     "isolatedModules": true,
     "noEmit": false,
     "outDir": "dist/types",
-    "types": ["vitest/importMeta", "vite/client"],
+    "types": ["vitest/importMeta", "vite/client", "node"],
     "skipLibCheck": true
   },
   "include": ["src", "tests", "playwright.config.ts", "vite.config.ts", "vitest.config.ts"],
