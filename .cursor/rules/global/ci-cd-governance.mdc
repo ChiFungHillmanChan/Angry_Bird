@@ -1,0 +1,41 @@
+---
+alwaysApply: true
+description: Enterprise CI/CD and governance standards
+---
+
+# Enterprise CI/CD & Governance Standards
+
+## CI/CD Pipeline Requirements
+* **Branch protection**: require reviews, passing checks, linear history
+* **Required checks**: lint, typecheck, tests, security scan, license scan, build
+* **Conventional Commits** for automated changelogs and releases
+* **Release artifacts** are reproducible with build metadata
+* **Deployment strategy**: blue-green or canary deployments
+
+## Quality Gates
+* **Automated Testing** - All tests must pass
+* **Code Quality Gates** - Linting, formatting, complexity checks
+* **Security Scanning** - Dependency and code vulnerability scans
+* **Performance Testing** - Load and performance tests
+* **Accessibility Testing** - Automated accessibility checks
+
+## Governance Standards
+* **Code review process** - Mandatory peer review
+* **Approval requirements** - Multiple approvers for critical changes
+* **Change management** - Documented change process
+* **Release management** - Controlled release process
+* **Rollback procedures** - Quick rollback capabilities
+
+## Compliance Requirements
+* **Audit trails** - Complete change history
+* **Access controls** - Role-based permissions
+* **Data retention** - Compliance with regulations
+* **Security compliance** - Regular security assessments
+* **Performance monitoring** - Continuous performance tracking
+
+## Enterprise Practices
+* **Disaster recovery** - Backup and recovery procedures
+* **Business continuity** - Minimal downtime strategies
+* **Capacity planning** - Resource scaling strategies
+* **Monitoring and alerting** - Proactive issue detection
+* **Incident management** - Structured incident response

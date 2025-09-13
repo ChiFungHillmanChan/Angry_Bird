@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "WebWorker"],
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "outDir": "dist/types",
+    "types": ["vitest/importMeta", "vite/client"],
+    "skipLibCheck": true
+  },
+  "include": ["src", "tests", "playwright.config.ts", "vite.config.ts", "vitest.config.ts"],
+  "exclude": ["dist", "node_modules"]
+}
+
+

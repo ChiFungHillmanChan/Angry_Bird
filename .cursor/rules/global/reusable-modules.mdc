@@ -1,0 +1,41 @@
+---
+alwaysApply: true
+description: Enterprise reusable modules and utility standards
+---
+
+# Enterprise Reusable Modules Standards
+
+## Reusability Principles
+* **Utilities are pure** - no hidden globals, accept explicit dependencies
+* **No duplication** - extract common logic into shared modules
+* **Stable signatures** - use small parameter objects over long lists
+* **Side-effect modules** clearly named (e.g., `*-adapter`, `*-gateway`, `*-client`)
+* **Composition over inheritance** - prefer functional composition
+
+## Module Design Patterns
+* **Library Design** - Stable, well-documented APIs
+* **Versioning Strategy** - Semantic versioning with deprecation policies
+* **Dependency Management** - Minimal, well-maintained dependencies
+* **Code Sharing** - Internal packages and shared libraries
+* **Documentation** - Comprehensive usage examples
+
+## Utility Function Standards
+* **Single responsibility** - Each utility does one thing well
+* **Pure functions** - No side effects, predictable outputs
+* **Comprehensive testing** - Unit tests for all utilities
+* **Performance considerations** - Big-O notation for complex algorithms
+* **Error handling** - Proper error propagation and handling
+
+## Module Organization
+* **Logical grouping** - Related utilities in same module
+* **Clear interfaces** - Well-defined public APIs
+* **Internal vs external** - Clear separation of concerns
+* **Dependency injection** - Testable and flexible design
+* **Configuration management** - Environment-specific settings
+
+## Enterprise Reusability Practices
+* **API stability** - Backward compatibility guarantees
+* **Deprecation process** - Clear migration paths
+* **Performance monitoring** - Track utility usage and performance
+* **Security review** - Regular security assessments
+* **Documentation maintenance** - Keep examples and docs current

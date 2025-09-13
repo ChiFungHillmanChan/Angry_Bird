@@ -1,0 +1,35 @@
+---
+alwaysApply: true
+description: Enterprise code quality standards and maintainability principles
+---
+
+# Enterprise Code Quality Standards
+
+## Readability & Maintainability
+* Optimize for **clarity first**: simple control flow, early returns, limit nesting (≤ 3 levels)
+* **Cognitive complexity targets**: functions ≤ 10 complexity; files ≤ 200–400 LOC where practical
+* **Naming** is intent-revealing, unabbreviated, domain-specific; avoid overloaded generic names
+* **Dead code** forbidden: no unused exports, parameters, or imports
+* **Deterministic formatting**: rely on the repository formatter; no manual style inventions
+
+## Function & API Design
+* **Small functions** (≈20–30 lines). One stable responsibility
+* **Pure by default**: side effects isolated to dedicated adapters/services
+* **Names express outcomes** and constraints
+* **Inputs validated at boundaries** (HTTP handlers, message consumers, CLI entrypoints)
+* **Return rich results** instead of bare booleans when helpful
+* **Idempotency** for retriable operations (idempotency keys / dedupe guards)
+
+## Code Quality Metrics
+* **Cyclomatic Complexity** ≤ 10 per function
+* **Lines of Code** ≤ 400 per file
+* **Test Coverage** ≥ 80%
+* **Code Duplication** ≤ 5%
+* **Technical Debt** tracked and managed
+
+## Enterprise Function Patterns
+* **Command Pattern** for operations that change state
+* **Query Pattern** for operations that retrieve data
+* **Factory Pattern** for object creation
+* **Strategy Pattern** for algorithm selection
+* **Observer Pattern** for event handling

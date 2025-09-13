@@ -1,0 +1,42 @@
+---
+alwaysApply: true
+description: Enterprise performance and accessibility standards
+---
+
+# Enterprise Performance & Accessibility Standards
+
+## Performance Standards
+* **Response Time** ≤ 200ms for 95th percentile
+* **Throughput** ≥ 1000 requests/second
+* **Error Rate** ≤ 0.1%
+* **Availability** ≥ 99.9%
+* **Performance Budgets** - Defined limits for key metrics
+
+## Performance Optimization
+* **Code splitting / lazy loading** for heavy UI or features
+* **Static assets**: compress, cache, fingerprint; prefer modern formats
+* **CDN Usage** - Global content delivery
+* **Caching Strategy** - Multi-layer caching approach
+* **Monitoring** - Real-time performance tracking
+
+## Accessibility Standards
+* **WCAG 2.2 AA** compliance baseline
+* **Contrast ratios** meet minimum requirements
+* **Keyboard navigation** fully functional
+* **Screen reader** compatibility
+* **Focus management** clear and logical
+* **Color independence** - information not conveyed by color alone
+
+## Accessibility Testing
+* **Automated checks** in CI
+* **Manual testing** with screen readers
+* **Keyboard-only navigation** testing
+* **Color contrast** validation
+* **Alternative text** for all images
+
+## Performance Monitoring
+* **Core Web Vitals** tracking
+* **Real User Monitoring (RUM)**
+* **Synthetic monitoring** for critical paths
+* **Performance budgets** enforcement
+* **Continuous optimization** processes

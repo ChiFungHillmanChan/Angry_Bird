@@ -1,0 +1,36 @@
+---
+globs: *.test.*,*.spec.*,**/tests/**,**/test/**
+description: Enterprise testing standards and quality assurance practices
+---
+
+# Enterprise Testing Standards
+
+## Testing Strategy
+* **Unit tests**: fast, deterministic, isolated (mock I/O)
+* **Integration tests**: exercise module boundaries and real adapters where feasible
+* **E2E tests**: critical flows only; run in CI on main and release branches
+* **Coverage**: target ≥80% lines/branches on new/changed code
+* **Property-based tests** for combinatorial inputs or parsing/serialization
+* **Mutation testing** optional for core logic
+
+## Test Quality Standards
+* **Test Pyramid** - More unit tests, fewer E2E tests
+* **Test Isolation** - Each test should be independent
+* **Test Data Management** - Use factories and builders
+* **Test Environment** - Consistent across all environments
+* **Test Reporting** - Clear, actionable test reports
+* **Non-flaky policy**: quarantine/fix flaky tests within 48h
+
+## Test Organization
+* Group related tests using describe blocks
+* Use descriptive test names
+* Follow AAA pattern (Arrange, Act, Assert)
+* Keep tests focused and independent
+* Mock external dependencies appropriately
+
+## Enterprise Testing Patterns
+* **Test-driven development** for critical business logic
+* **Behavior-driven development** for user-facing features
+* **Contract testing** for service boundaries
+* **Performance testing** for critical paths
+* **Security testing** for sensitive operations

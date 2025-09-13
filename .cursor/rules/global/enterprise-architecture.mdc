@@ -1,0 +1,49 @@
+---
+alwaysApply: true
+description: Enterprise architecture principles and patterns for scalable, maintainable systems
+---
+
+# Enterprise Architecture Principles
+
+## SOLID Principles
+* **Single Responsibility** - Each module has one reason to change
+* **Open/Closed** - Open for extension, closed for modification
+* **Liskov Substitution** - Subtypes must be substitutable for base types
+* **Interface Segregation** - Many specific interfaces are better than one general
+* **Dependency Inversion** - Depend on abstractions, not concretions
+
+## Enterprise Patterns
+* **Domain-Driven Design** - Model business domains explicitly
+* **CQRS** - Command Query Responsibility Segregation
+* **Event Sourcing** - Store events, not state
+* **Microservices** - Decompose by business capability
+* **API Gateway** - Single entry point for client requests
+
+## Module Boundary Rules
+* **Core modules** should not depend on UI or infrastructure
+* **Feature modules** can depend on core and shared modules
+* **Infrastructure modules** can depend on core modules via interfaces
+* **UI modules** can depend on feature and core modules
+* **Shared modules** should be dependency-free or minimal
+
+## Enterprise Directory Structure
+```
+project-root/
+├── src/                    # Source code
+│   ├── core/              # Core business logic
+│   ├── features/          # Feature modules
+│   ├── shared/            # Shared utilities
+│   ├── infrastructure/    # External dependencies
+│   └── tests/             # Test files
+├── config/                # Configuration files
+├── docs/                  # Documentation
+├── scripts/               # Build and utility scripts
+├── tools/                 # Development tools
+└── deployment/            # Deployment configurations
+```
+
+## Separation of Concerns
+* Group code by **domain or feature** first, then by type
+* Each file/module has one clear purpose
+* Use descriptive, intent-revealing names (avoid abbreviations)
+* Index files for re-exports only (no logic)

@@ -1,0 +1,42 @@
+---
+alwaysApply: true
+description: Enterprise documentation standards and practices
+---
+
+# Enterprise Documentation Standards
+
+## Documentation Principles
+* **Explain "why", not "what"**
+* **JSDoc/Docstrings** for all public functions, classes, and modules
+* **Include examples** in all documentation
+* **Inline comments** only for non-obvious business rules
+* **Keep docs close to code**
+
+## Documentation Types
+* **API Documentation** - Request/response examples, error codes
+* **Architecture Decision Records (ADRs)** - Significant decisions
+* **Code comments** - Complex business logic
+* **README files** - Each major module
+* **Changelog** - All releases
+* **User guides** - End-user documentation
+
+## Documentation Standards
+* **Consistent format** across all documentation
+* **Regular updates** with code changes
+* **Version control** for documentation
+* **Review process** for documentation changes
+* **Searchable** and well-organized
+
+## Code Documentation
+* **Function documentation** - Purpose, parameters, return values, examples
+* **Class documentation** - Purpose, usage, examples
+* **Module documentation** - Overview, exports, dependencies
+* **API documentation** - Endpoints, authentication, examples
+* **Configuration documentation** - Settings, environment variables
+
+## Enterprise Documentation Practices
+* **Living documentation** - Always up to date
+* **Single source of truth** - No duplicate information
+* **Structured format** - Consistent organization
+* **Search functionality** - Easy to find information
+* **Review process** - Quality assurance for documentation

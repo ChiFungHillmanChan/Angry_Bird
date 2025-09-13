@@ -1,0 +1,40 @@
+---
+alwaysApply: true
+description: Enterprise security and privacy standards for all web projects
+---
+
+# Enterprise Security & Privacy Standards
+
+## Core Security Principles
+* **Validate input and encode output** at all external boundaries
+* **AuthN vs AuthZ**: treat separately. Enforce least privilege and defense in depth
+* **Secret management**: never commit secrets to VCS. Use secret managers or CI-scoped variables
+* **Dependency hygiene**: pin versions, run advisory scans, review transitive risk
+* **Secure headers & CSP**: strict CSP, HSTS, frame options, referrer policy, XSS protections
+
+## Data Handling Standards
+* **Minimize PII**: classify data, redact logs, define retention and deletion paths
+* **Data classification**: public, internal, confidential, restricted
+* **Encryption**: at rest and in transit
+* **Access controls**: role-based access control (RBAC)
+* **Audit logging**: track all data access and modifications
+
+## Security Checklist
+* **Threat Modeling** for each feature
+* **Security Reviews** for all changes
+* **Penetration Testing** for critical systems
+* **Vulnerability Scanning** in CI/CD
+* **Security Training** for all developers
+
+## Security Metrics
+* **Vulnerability Count** = 0 critical, ≤ 5 high
+* **Dependency Updates** ≤ 30 days old
+* **Security Scans** pass 100%
+* **Access Reviews** completed quarterly
+
+## Privacy Compliance
+* **GDPR compliance** for EU data
+* **CCPA compliance** for California data
+* **Data minimization** principles
+* **Consent management** systems
+* **Right to be forgotten** implementation

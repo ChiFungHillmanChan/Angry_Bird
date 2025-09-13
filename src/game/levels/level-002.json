@@ -1,0 +1,19 @@
+{
+  "id": "level-002",
+  "world": { "gravity": 1.0, "wind": 0 },
+  "camera": { "startX": 0, "startY": 0, "minX": 0, "maxX": 3200 },
+  "slingshot": { "x": 180, "y": 520, "maxPull": 140, "powerK": 8 },
+  "birds": [{ "type": "basic" }, { "type": "basic" }, { "type": "basic" }],
+  "blocks": [
+    { "shape": "rect", "x": 1300, "y": 560, "w": 200, "h": 30, "mat": "wood", "hp": 60 },
+    { "shape": "rect", "x": 1400, "y": 530, "w": 30, "h": 120, "mat": "stone", "hp": 120 },
+    { "shape": "rect", "x": 1500, "y": 560, "w": 200, "h": 30, "mat": "wood", "hp": 60 }
+  ],
+  "targets": [
+    { "shape": "circle", "x": 1550, "y": 580, "r": 20, "mat": "target" },
+    { "shape": "circle", "x": 1250, "y": 580, "r": 20, "mat": "target" }
+  ],
+  "goals": { "destroyTargets": true, "scoreStars": [3000, 5000, 7000] }
+}
+
+

@@ -1,0 +1,47 @@
+---
+alwaysApply: true
+description: AI agent collaboration and enterprise convention compliance
+---
+
+# AI Agent Collaboration & Enterprise Compliance
+
+## Convention Compliance (Non-Negotiable)
+* **Honor existing repo configuration**: strictly follow linter configs, formatter configs, language configs, CI pipelines
+* **Match local patterns**: prefer existing project conventions over generic "best practices"
+* **No silent divergence**: explain deltas and propose alternatives that match project style
+* **Respect existing architecture** - Don't change patterns without justification
+
+## AI Generation Guardrails
+* **Prefer pure utilities** - isolate side-effects behind adapters/clients
+* **Avoid introducing frameworks/libs** unless already used or RFC exists
+* **Respect performance budgets** and accessibility constraints
+* **Provide usage examples** in comments/JSDoc for new functions/components
+* **Maintain backward compatibility** unless explicitly requested
+
+## Code Generation Standards
+* **Minimal diffs** - change smallest surface necessary
+* **No drive-by reformatting** outside touched lines
+* **Test parity** - update/add tests when editing tested code
+* **Documentation updates** - update docs when behavior changes
+* **Security considerations** - never introduce secrets or vulnerabilities
+
+## Quality Assurance
+* **Warnings-as-errors** - generated code must compile/type-check/lint clean
+* **Behavior preservation** - refactors must be semantics-preserving
+* **Input validation** at boundaries and output encoding where relevant
+* **Security posture** - constant-time primitives for sensitive comparisons
+* **Dependency validation** - only use approved third-party libraries
+
+## Collaboration Workflow
+* **Ask clarifying questions** when requirements are ambiguous (max 2 questions)
+* **Default to existing conventions** when unclear
+* **Document assumptions** at the top of changes
+* **Provide rationale** for significant changes
+* **Include test evidence** and security considerations
+
+## Enterprise Compliance
+* **Follow company standards** - branding, naming, architectural patterns
+* **Respect security policies** - data handling, access controls
+* **Maintain audit trails** - clear change documentation
+* **Performance requirements** - meet defined SLAs and budgets
+* **Accessibility standards** - WCAG compliance for all UI changes

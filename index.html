@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b1021" />
+    <title>Sling Critter</title>
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="description" content="Sling Critter - Slingshot physics puzzle game" />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div id="app" style="position:relative; width:100vw; height:100vh; overflow:hidden;">
+      <canvas id="game" width="1280" height="720"></canvas>
+      <div id="dom-overlay" style="position:absolute; inset:0; pointer-events:none;"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+
+

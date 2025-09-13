@@ -1,0 +1,49 @@
+---
+alwaysApply: true
+description: Enterprise error handling and logging standards
+---
+
+# Enterprise Error Handling & Logging Standards
+
+## Error Handling Principles
+* **Fail fast** in development; **fail closed** in production
+* **User-facing errors**: clear, actionable messages; no internal stack traces
+* **Technical errors**: include machine-parsable codes with categories
+* **Graceful degradation** - System continues functioning with reduced capability
+* **Recovery mechanisms** - Automatic retry and fallback strategies
+
+## Error Categories
+* **Validation** - Input validation errors
+* **Authentication** - Auth-related errors
+* **Authorization** - Permission-related errors
+* **Timeout** - Request timeout errors
+* **Upstream** - External service errors
+* **Invariant** - System integrity errors
+
+## Logging Standards
+* **Structured logs** (key/value pairs)
+* **Correlation IDs** for request tracking
+* **Actor/context** information (exclude secrets/PII)
+* **Log levels** - DEBUG, INFO, WARN, ERROR, FATAL
+* **Centralized logging** - Single log aggregation system
+
+## Observability Patterns
+* **Distributed Tracing** - Request flow tracking
+* **Metrics Collection** - Performance monitoring
+* **Alerting** - Proactive issue detection
+* **Dashboards** - System health visibility
+* **Log Analysis** - Pattern detection and analysis
+
+## Error Response Patterns
+* **Consistent format** across all APIs
+* **Error codes** for programmatic handling
+* **User messages** for human-readable errors
+* **Retry information** for transient errors
+* **Documentation links** for resolution guidance
+
+## Enterprise Error Management
+* **Error budgets** - Acceptable error rates
+* **SLA compliance** - Service level agreements
+* **Incident response** - Structured error handling
+* **Post-mortem process** - Learning from errors
+* **Continuous improvement** - Error prevention strategies
