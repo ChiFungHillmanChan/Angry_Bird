@@ -34,7 +34,7 @@ export class Camera {
     this.followLerp = Math.max(0.01, Math.min(1, options?.lerp ?? 0.1));
   }
 
-  update(dt: number): void {
+  update(_dt: number): void {
     if (this.followTarget) {
       const t = this.followTarget.getPosition();
       this.pos.x += (t.x - this.pos.x) * this.followLerp;

@@ -17,7 +17,7 @@ describe('level schema', () => {
     expect(parsed.success).toBe(true);
   });
   it('invalid level fails', () => {
-    const data: any = {
+    const data = {
       id: '',
       world: { gravity: -1, wind: 0 },
       camera: { startX: 0, startY: 0, minX: 0, maxX: 0 },

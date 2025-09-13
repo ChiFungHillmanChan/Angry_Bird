@@ -1,16 +1,16 @@
-import type { Body, Engine, IEventCollision, Pair } from 'matter-js';
-import { Events, World } from 'matter-js';
+import * as Matter from 'matter-js';
+import type { DrawableBody, WorldT } from '../../core/physics/engine';
 import { LevelSchema, type LevelData } from './schema';
 import { createBlock } from '../entities/Block';
 import { createTarget, renderTarget } from '../entities/Target';
 import { getPhysics } from '../../core/physics/engine';
 
 export class LevelLoader {
-  private world: World;
+  private world: WorldT;
   private data?: LevelData;
-  private targets: Body[] = [];
+  private targets: DrawableBody[] = [];
 
-  constructor(world: World) {
+  constructor(world: WorldT) {
     this.world = world;
   }
 
@@ -39,17 +39,17 @@ export class LevelLoader {
     }
 
     // collisions
-    const engine = getPhysics().engine as Engine;
-    Events.on(engine, 'collisionStart', (evt: IEventCollision<Engine>) => {
-      const pairs = evt.pairs as Pair[];
+    const engine = getPhysics().engine;
+    Matter.Events.on(engine as any, 'collisionStart', (evt: any) => {
+      const pairs = (evt.pairs as any[]) ?? [];
       for (const pair of pairs) {
-        const a = pair.bodyA;
-        const b = pair.bodyB;
+        const a = pair.bodyA as DrawableBody;
+        const b = pair.bodyB as DrawableBody;
         if ((a.label === 'bird' && b.label === 'target') || (b.label === 'bird' && a.label === 'target')) {
-          const target = a.label === 'target' ? a : b;
+          const target = (a.label === 'target' ? a : b) as unknown as any;
           // remove target
-          World.remove(this.world, target);
-          this.targets = this.targets.filter((t) => t !== target);
+          Matter.World.remove(this.world as any, target as any);
+          this.targets = this.targets.filter((tt) => tt !== (target as unknown as DrawableBody));
           onTargetDestroyed(1000);
         }
       }
@@ -66,8 +66,6 @@ export class LevelLoader {
   }
 
   render(ctx: CanvasRenderingContext2D): void {
-    // For simplicity, iterate world bodies is heavy; instead we track blocks/targets for render in a real engine
-    // Here we omit blocks drawing individually; in minimal MVP draw tracked targets only.
     for (const t of this.targets) renderTarget(ctx, t);
   }
 }

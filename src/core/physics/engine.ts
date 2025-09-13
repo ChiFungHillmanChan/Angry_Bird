@@ -1,12 +1,27 @@
-import { Bodies, Engine, World } from 'matter-js';
+import * as Matter from 'matter-js';
 
 export type Material = 'wood' | 'stone' | 'bird' | 'target';
 
+export type EngineT = ReturnType<typeof Matter.Engine.create>;
+export type WorldT = EngineT['world'];
+export type BodyT = ReturnType<typeof Matter.Bodies.circle>;
+
+export type DrawableBody = {
+  label: string;
+  position: { x: number; y: number };
+  velocity: { x: number; y: number };
+  angle: number;
+  bounds: { min: { x: number; y: number }; max: { x: number; y: number } };
+  circleRadius?: number;
+};
+
 export interface PhysicsContext {
-  engine: Engine;
-  world: World;
+  engine: EngineT;
+  world: WorldT;
   debug: boolean;
 }
+
+// Matter.js types are available via the default namespace import
 
 let singleton: PhysicsContext | null = null;
 
@@ -19,20 +34,20 @@ const MATERIALS: Record<Material, { density: number; friction: number; restituti
 
 export function getPhysics(debug = false): PhysicsContext {
   if (singleton) return singleton;
-  const engine = Engine.create({ gravity: { x: 0, y: 1, scale: 0.001 } });
-  const world = engine.world;
+  const engine = Matter.Engine.create({ gravity: { x: 0, y: 1, scale: 0.001 } });
+  const world: WorldT = engine.world;
   singleton = { engine, world, debug };
   return singleton;
 }
 
 export function stepFixed(dt: number): void {
   const ctx = getPhysics();
-  Engine.update(ctx.engine, dt * 1000);
+  Matter.Engine.update(ctx.engine, dt * 1000);
 }
 
 export function createGround(x: number, y: number, width: number, height: number) {
-  const body = Bodies.rectangle(x, y, width, height, { isStatic: true, label: 'ground' });
-  World.add(getPhysics().world, body);
+  const body = Matter.Bodies.rectangle(x, y, width, height, { isStatic: true, label: 'ground' });
+  Matter.World.add(getPhysics().world, body);
   return body;
 }
 
@@ -47,6 +62,5 @@ export function applyMaterial(opts: { label: string; material: Material; isStati
   };
 }
 
-export { Bodies, Body, Composite, World } from 'matter-js';
 
 

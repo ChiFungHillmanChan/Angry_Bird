@@ -1,4 +1,5 @@
-import { Bodies, Body, World } from 'matter-js';
+import * as Matter from 'matter-js';
+import type { WorldT } from '../../core/physics/engine';
 import type { Renderer } from '../../core/render/Renderer';
 import type { Input } from '../../core/input/Input';
 
@@ -6,10 +7,10 @@ export class Slingshot {
   private anchor: { x: number; y: number };
   private maxPull: number;
   private powerK: number;
-  private world: World;
+  private world: WorldT;
   private renderer: Renderer;
   private input: Input;
-  private currentBird: Body | null = null;
+  private currentBird: any | null = null;
   private path: { x: number; y: number }[] = [];
   private onLaunch: () => void;
 
@@ -18,7 +19,7 @@ export class Slingshot {
     y: number,
     maxPull: number,
     powerK: number,
-    world: World,
+    world: WorldT,
     renderer: Renderer,
     input: Input,
     onLaunch: () => void
@@ -38,15 +39,15 @@ export class Slingshot {
   }
 
   private spawnBird(): void {
-    const bird = Bodies.circle(this.anchor.x, this.anchor.y, 16, {
+    const bird = Matter.Bodies.circle(this.anchor.x, this.anchor.y, 16, {
       label: 'bird',
       density: 0.003,
       friction: 0.3,
       restitution: 0.2
     });
-    Body.setStatic(bird, true);
-    this.currentBird = bird;
-    World.add(this.world, bird);
+    Matter.Body.setStatic(bird, true);
+    this.currentBird = bird as any;
+    Matter.World.add(this.world as any, bird as any);
   }
 
   private getPullPoint(): { x: number; y: number } | null {
@@ -75,23 +76,25 @@ export class Slingshot {
     if (!this.currentBird) return;
     const pull = this.getPullPoint();
     if (pull) {
-      Body.setPosition(this.currentBird, pull);
+      Matter.Body.setPosition(this.currentBird as any, pull as any);
     }
     if (!this.input.pointer.isDown && this.input.pointer.start && pull) {
       // Release
-      Body.setStatic(this.currentBird, false);
+      Matter.Body.setStatic(this.currentBird as any, false);
       const v = this.computeLaunchVelocity(pull);
-      Body.setVelocity(this.currentBird, v);
+      Matter.Body.setVelocity(this.currentBird as any, v as any);
       this.onLaunch();
       this.path = [];
-      this.renderer.camera.follow({ getPosition: () => ({ x: this.currentBird!.position.x, y: this.currentBird!.position.y }) }, { lerp: 0.08 });
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      this.renderer.camera.follow({ getPosition: () => ({ x: (this.currentBird as any)!.position.x, y: (this.currentBird as any)!.position.y }) }, { lerp: 0.08 });
     }
     if (this.currentBird && !this.input.pointer.isDown) {
       // Update trail
-      const pos = this.currentBird.position;
+      const pos = (this.currentBird as any).position as { x: number; y: number };
       this.path.push({ x: pos.x, y: pos.y });
       if (this.path.length > 40) this.path.shift();
-      if ((this.currentBird.velocity.x ** 2 + this.currentBird.velocity.y ** 2) < 0.01) {
+      const vel = (this.currentBird as any).velocity as { x: number; y: number };
+      if ((vel.x ** 2 + vel.y ** 2) < 0.01) {
         // Ended movement
         this.currentBird = null;
         this.spawnBird();
@@ -105,7 +108,7 @@ export class Slingshot {
     ctx.lineWidth = 6;
     const pull = this.getPullPoint();
     const anchor = this.anchor;
-    const birdPos = this.currentBird?.position ?? anchor;
+    const birdPos = (this.currentBird ? (this.currentBird as any).position : anchor) as { x: number; y: number };
     ctx.beginPath();
     ctx.moveTo(anchor.x - 8, anchor.y);
     ctx.lineTo(pull?.x ?? birdPos.x, pull?.y ?? birdPos.y);
@@ -125,7 +128,8 @@ export class Slingshot {
     if (this.currentBird) {
       ctx.fillStyle = '#ffd166';
       ctx.beginPath();
-      ctx.arc(this.currentBird.position.x, this.currentBird.position.y, 16, 0, Math.PI * 2);
+      const p = (this.currentBird as any).position as { x: number; y: number };
+      ctx.arc(p.x, p.y, 16, 0, Math.PI * 2);
       ctx.fill();
     }
 

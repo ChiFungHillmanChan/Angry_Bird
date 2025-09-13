@@ -1,4 +1,5 @@
-import { Bodies, Body, World } from 'matter-js';
+import * as Matter from 'matter-js';
+import type { DrawableBody, WorldT } from '../../core/physics/engine';
 
 export interface BlockOptions {
   x: number;
@@ -9,22 +10,22 @@ export interface BlockOptions {
   hp: number;
 }
 
-export function createBlock(world: World, opts: BlockOptions) {
-  const block = Bodies.rectangle(opts.x, opts.y, opts.w, opts.h, {
+export function createBlock(world: WorldT, opts: BlockOptions) {
+  const block = Matter.Bodies.rectangle(opts.x, opts.y, opts.w, opts.h, {
     label: 'block',
     density: opts.material === 'stone' ? 0.004 : 0.002,
     friction: opts.material === 'stone' ? 0.5 : 0.4,
     restitution: opts.material === 'stone' ? 0.05 : 0.1
-  }) as Body & { hp?: number; mat?: string };
+  }) as DrawableBody & { hp?: number; mat?: string };
   block.hp = opts.hp;
   block.mat = opts.material;
-  World.add(world, block);
+  Matter.World.add(world as any, block as any);
   return block;
 }
 
-export function renderBlock(ctx: CanvasRenderingContext2D, body: Body & { hp?: number; mat?: string }) {
-  const w = (body as any).bounds.max.x - (body as any).bounds.min.x;
-  const h = (body as any).bounds.max.y - (body as any).bounds.min.y;
+export function renderBlock(ctx: CanvasRenderingContext2D, body: DrawableBody & { hp?: number; mat?: string }) {
+  const w = body.bounds.max.x - body.bounds.min.x;
+  const h = body.bounds.max.y - body.bounds.min.y;
   ctx.save();
   ctx.translate(body.position.x, body.position.y);
   ctx.rotate(body.angle);

@@ -18,7 +18,7 @@ describe('math utils', () => {
   it('projectile points', () => {
     const pts = projectilePoints({ x: 0, y: 0 }, { x: 10, y: -10 }, 9.81, 3, 0.1);
     expect(pts.length).toBe(3);
-    expect(pts[0].x).toBeCloseTo(1, 3);
+    expect(pts[0]!.x).toBeCloseTo(1, 3);
   });
 });
 
