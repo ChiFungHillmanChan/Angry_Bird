@@ -15,7 +15,7 @@ class SfxManager {
     this.sounds.win = new Howl({ src: ['/audio/win.mp3'], volume: 0.5 });
     this.sounds.lose = new Howl({ src: ['/audio/lose.mp3'], volume: 0.5 });
     this.sounds.bgm = new Howl({ src: ['/audio/bgm.mp3'], loop: true, volume: 0.3 });
-    if (!this.isMuted()) this.sounds.bgm.play();
+    // if (!this.isMuted()) this.sounds.bgm.play();
     this.initialized = true;
   }
 
